@@ -27,6 +27,18 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // 어노테이션 (@Entity) 사용 위해
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // mysql 사용 위해
+    runtimeOnly 'mysql:mysql-connector-j'
+
+    // 어노테이션 @Valid 사용 위해
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // passwordEncoder 사용 위해
+    implementation 'org.springframework.boot:spring-boot-starter-security'
 }
 
 tasks.named('test') {
