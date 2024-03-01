@@ -16,6 +16,8 @@ public class SignUpDto {
 
     private String password;
 
+    private String passwordCheck;
+
     private String nickname;
 
     public static User toEntity(SignUpDto.Request request) { // static 이 있어야 service 에서 사용가능

@@ -1,5 +1,6 @@
 package com.example.board.user.controller;
 
+import com.example.board.user.dto.SignInDto;
 import com.example.board.user.dto.SignUpDto;
 import com.example.board.user.service.UserService;
 import jakarta.validation.Valid;
@@ -19,7 +20,13 @@ public class UserController {
 
   @PostMapping("/signup")
   public ResponseEntity<SignUpDto.Response> signUp (@RequestBody @Valid SignUpDto.Request request) {
-    SignUpDto.Response response = userService.signup(request);
+    SignUpDto.Response response = userService.signUp(request);
+    return ResponseEntity.ok(response);
+  }
+
+  @PostMapping("/signin")
+  public ResponseEntity<SignInDto.Response> signIn (@RequestBody @Valid SignInDto.Request request) {
+    SignInDto.Response response = userService.signIn(request);
     return ResponseEntity.ok(response);
   }
 
