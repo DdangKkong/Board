@@ -18,7 +18,7 @@ public class ExceptionManager {
 
   @ExceptionHandler(RuntimeException.class)
   public ResponseEntity<?> runtimeExceptionHandler(RuntimeException e) {
-    return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage()); // error code 500
   }
 
 }
