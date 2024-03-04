@@ -25,7 +25,7 @@ public class JwtFilter extends OncePerRequestFilter {
   private final UserService userService;
   private final String secretKey;
 
-  // 페이지 접근 권한 부여
+  // 페이지 접근 권한 부여, 회원가입과 로그인 시에는 Header 에 Authorization 을 넣제 않으니까 당연히 null 이 뜨지 않을까?
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
       FilterChain filterChain) throws ServletException, IOException {
