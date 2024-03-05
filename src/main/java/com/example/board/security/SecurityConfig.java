@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -28,9 +29,16 @@ public class SecurityConfig {
         .csrf(AbstractHttpConfigurer::disable)
         // 페이지 권한 설정
         .authorizeHttpRequests(requests -> requests
-        .requestMatchers("/users/signup", "/users/signin").permitAll() // join, login은 언제나 가능
+//        .requestMatchers("/users/signup", "/users/signin", "/board/posts/{post_id}").permitAll() // join, login은 언제나 가능
+//        .requestMatchers(HttpMethod.GET, "/board/posts/**").permitAll()
+        .requestMatchers(
+            new AntPathRequestMatcher("/users/signup"),
+            new AntPathRequestMatcher("/users/signin"),
+            new AntPathRequestMatcher("/board/posts/{post_id}")
+        ).permitAll()
 //        .requestMatchers(HttpMethod.POST, "/**").authenticated() // POST 요청은 일단 다 막음
-        .requestMatchers("/**").authenticated()) // 접근 다 막음
+//        .requestMatchers("/**").authenticated()) // 접근 다 막음
+        .anyRequest().authenticated())
         // 토큰 필터링
         // UserNamePasswordAuthenticationFilter적용하기 전에 JWTTokenFilter를 적용 하라는 뜻
         .addFilterBefore(new JwtFilter(userService, secretKey), UsernamePasswordAuthenticationFilter.class)

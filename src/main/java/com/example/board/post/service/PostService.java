@@ -7,6 +7,7 @@ import com.example.board.post.dto.CreatePost;
 import com.example.board.post.dto.CreatePost.Request;
 import com.example.board.post.dto.CreatePost.Response;
 import com.example.board.post.dto.PostDto;
+import com.example.board.post.dto.UpdatePost;
 import com.example.board.post.repository.PostRepository;
 import com.example.board.user.domain.User;
 import com.example.board.user.repository.UserRepository;
@@ -35,8 +36,35 @@ public class PostService {
     return PostDto.fromEntity(post);
   }
 
+  public PostDto readPost(int postId) {
+    Post post = getPost(postId);
+    return PostDto.fromEntity(post);
+  }
+
+  public PostDto updatePost(UpdatePost.Request request) {
+    User user = getUser(request.getUserId());
+    Post post = getPost(request.getPostId());
+
+    // 클라이언트의 user 정보가 게시글 작성자와 일치여부 확인
+    if (post.getUser().getId() != request.getUserId()) {
+      throw new AppException(ErrorCode.USERID_UNMATCHED);
+    }
+
+    post.setTitle(request.getTitle());
+    post.setContent(request.getContent());
+    post.setUpdatedTime(LocalDateTime.now());
+
+    return PostDto.fromEntity(postRepository.save(post));
+  }
+
   private User getUser(int userId) {
     return userRepository.findById(userId)
         .orElseThrow(() -> new AppException(ErrorCode.USERID_INVALID));
   }
+
+  private Post getPost(int postId) {
+    return postRepository.findById(postId)
+        .orElseThrow(() -> new AppException(ErrorCode.POSTID_INVALID));
+  }
+
 }

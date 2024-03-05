@@ -12,6 +12,8 @@ public enum ErrorCode {
   USERLOGINID_DUPLICATED(HttpStatus.CONFLICT, "이미 존재하는 아이디입니다."),
   USERLOGINID_NOTFOUND(HttpStatus.NOT_FOUND, "해당 아이디를 가진 유저를 찾을 수 없습니다."),
   USERID_INVALID(HttpStatus.FORBIDDEN, "유효하지 않은 회원 정보입니다"),
+  USERID_UNMATCHED(HttpStatus.FORBIDDEN, "회원 권한이 없습니다"),
+  POSTID_INVALID(HttpStatus.FORBIDDEN, "유효하지 않은 게시글 정보입니다"),
   NICKNAME_DUPLICATED(HttpStatus.CONFLICT, "이미 존재하는 닉네임입니다."),
   PASSWORD_INVALID(HttpStatus.UNAUTHORIZED,  "패스워드를 잘못 입력하였습니다."),
   PASSWORD_NOT_CHANGED(HttpStatus.CONFLICT, ""),
