@@ -1,5 +1,6 @@
 package com.example.board.post.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import lombok.Builder;
@@ -15,9 +16,9 @@ public class CreatePost {
 
     @NotNull
     private int userId;
-    @NotNull
+    @NotBlank
     private String title;
-    @NotNull
+    @NotBlank
     private String content;
 
   }

@@ -10,8 +10,18 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Comment {
 
   @Id
@@ -25,7 +35,7 @@ public class Comment {
   @Column(name = "created_time")
   private LocalDateTime createdTime;
 
-  @Column(name = "updated_date")
+  @Column(name = "updated_time")
   private LocalDateTime updatedTime;
 
   @Column(name = "removed_time")

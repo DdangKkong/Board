@@ -1,6 +1,7 @@
 package com.example.board.user.dto;
 
 import com.example.board.user.domain.User;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import lombok.Builder;
@@ -13,13 +14,13 @@ public class SignUpDto {
   @Setter
   public static class Request{
 
-    @NotNull
+    @NotBlank
     private String userLoginId;
-    @NotNull
+    @NotBlank
     private String password;
-    @NotNull
+    @NotBlank
     private String passwordCheck;
-    @NotNull
+    @NotBlank
     private String nickname;
 
     public static User toEntity(SignUpDto.Request request) { // static 이 있어야 service 에서 사용가능

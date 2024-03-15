@@ -1,5 +1,6 @@
 package com.example.board.user.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,9 +10,9 @@ public class SignInDto {
   @Getter
   public static class Request {
 
-    @NotNull
+    @NotBlank
     private String userLoginId;
-    @NotNull
+    @NotBlank
     private String password;
 
   }
