@@ -2,7 +2,6 @@ package com.example.board.user.dto;
 
 import com.example.board.user.domain.User;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;

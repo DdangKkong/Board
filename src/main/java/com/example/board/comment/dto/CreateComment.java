@@ -1,6 +1,5 @@
 package com.example.board.comment.dto;
 
-import com.example.board.comment.domain.Comment;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;

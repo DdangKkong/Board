@@ -25,7 +25,8 @@ public class UserController {
   }
 
   @PostMapping("/signin")
-  public ResponseEntity<SignInDto.Response> signIn (@RequestBody @Valid SignInDto.Request request) {
+  public ResponseEntity<SignInDto.Response> signIn (@RequestBody @Valid SignInDto.Request request)
+      throws Throwable {
     SignInDto.Response response = userService.signIn(request);
     return ResponseEntity.ok(response);
   }

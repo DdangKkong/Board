@@ -8,13 +8,13 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -26,6 +26,7 @@ public class JwtFilter extends OncePerRequestFilter {
   private final String secretKey;
 
   // 페이지 접근 권한 부여, 회원가입과 로그인 시에는 Header 에 Authorization 을 넣지 않으니까 당연히 null 이 뜨지 않을까?
+  @SneakyThrows
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
       FilterChain filterChain) throws ServletException, IOException {
@@ -54,9 +55,14 @@ public class JwtFilter extends OncePerRequestFilter {
     String userLoginId = JwtProvider.getUserLoginId(token, secretKey);
     log.info("userLoginId:{}", userLoginId);
 
+    // 유저 정보 가져오기 - UserDetails 형식으로 가져옴
+    UserDetails userDetails = userService.userDetails(userLoginId);
+
     // 권한 부여
+//    UsernamePasswordAuthenticationToken authenticationToken =
+//        new UsernamePasswordAuthenticationToken(userLoginId, null, List.of(new SimpleGrantedAuthority("USER")));
     UsernamePasswordAuthenticationToken authenticationToken =
-        new UsernamePasswordAuthenticationToken(userLoginId, null, List.of(new SimpleGrantedAuthority("USER")));
+        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
     // Detail
     authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
     SecurityContextHolder.getContext().setAuthentication(authenticationToken);

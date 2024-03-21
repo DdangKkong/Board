@@ -2,15 +2,15 @@
 <!-- 이 PR에서 어떤점들이 변경되었는지 기술해주세요. 가급적이면 as-is, to-be를 활용해서 작성해주세요.  -->
 **AS-IS**
 
-- 댓글 CRUD 구현
-    - 댓글 작성은 회원만 가능하다.
-    - 댓글 수정은 작성자만 가능하다.
-    - 댓글 조회는 누구나 가능하다.
-    - 댓글 삭제는 작성자만 가능하며 댓글의 데이터는 db 에 남기고 removeTime 을 통해 삭제된 것을 체크하여 프론트에서 보이지 않게 한다.
+- 알림 Announcement 구현
+    - SseEmitter 사용.
+    - 게시글에 댓글이 달릴 시, 게시글 작성자에게 알림 메세지 발송.
+    - postman 사용하여 테스트.
+    - @AuthenticationPrincipal 을 사용하여 user 정보를 token 을 통해 가져오는데, User(Entity) 로는 가져와지지 않아서 UserAspect.java 를 통해 UserDetails 로 변환함. 
 
 **TO-BE**
 
-- 알림 기능 구현 예정
+- test code 작성
 
 ### 테스트
 <!-- 본 변경사항이 테스트가 되었는지 기술해주세요 --> 

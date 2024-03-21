@@ -1,10 +1,9 @@
 package com.example.board.comment.service;
 
+import com.example.board.announcement.service.AnnouncementService;
 import com.example.board.comment.domain.Comment;
 import com.example.board.comment.dto.CommentDto;
-import com.example.board.comment.dto.CreateComment;
 import com.example.board.comment.dto.CreateComment.Request;
-import com.example.board.comment.dto.ReadComment;
 import com.example.board.comment.dto.RemoveComment;
 import com.example.board.comment.dto.UpdateComment;
 import com.example.board.comment.repository.CommentRepository;
@@ -26,6 +25,7 @@ public class CommentService {
   private final UserRepository userRepository;
   private final PostRepository postRepository;
   private final CommentRepository commentRepository;
+  private final AnnouncementService announcementService;
 
   private User getUser(int userId) {
     return userRepository.findById(userId)
@@ -51,6 +51,9 @@ public class CommentService {
         .user(user)
         .build();
     commentRepository.save(comment);
+
+    // 알림 발송
+    announcementService.announceComment(request.getPostId());
 
     return CommentDto.fromEntity(comment);
   }
