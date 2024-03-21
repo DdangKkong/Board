@@ -34,7 +34,8 @@ public class SecurityConfig {
         .requestMatchers(
             new AntPathRequestMatcher("/users/signup"),
             new AntPathRequestMatcher("/users/signin"),
-            new AntPathRequestMatcher("/board/posts/{post_id}")
+            new AntPathRequestMatcher("/board/posts/{post_id}"),
+            new AntPathRequestMatcher("/board/comments/{comment_id}")
         ).permitAll()
 //        .requestMatchers(HttpMethod.POST, "/**").authenticated() // POST 요청은 일단 다 막음
 //        .requestMatchers("/**").authenticated()) // 접근 다 막음

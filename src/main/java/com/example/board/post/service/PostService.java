@@ -12,6 +12,7 @@ import com.example.board.post.dto.UpdatePost;
 import com.example.board.post.repository.PostRepository;
 import com.example.board.user.domain.User;
 import com.example.board.user.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,7 @@ public class PostService {
     return PostDto.fromEntity(post);
   }
 
+  @Transactional
   public PostDto updatePost(UpdatePost.Request request) {
     User user = getUser(request.getUserId());
     Post post = getPost(request.getPostId());
@@ -55,9 +57,10 @@ public class PostService {
     post.setContent(request.getContent());
     post.setUpdatedTime(LocalDateTime.now());
 
-    return PostDto.fromEntity(postRepository.save(post));
+    return PostDto.fromEntity(post);
   }
 
+  @Transactional
   public PostDto removePost(RemovePost.Request request) {
     User user = getUser(request.getUserId());
     Post post = getPost(request.getPostId());
@@ -67,8 +70,7 @@ public class PostService {
       throw new AppException(ErrorCode.USERID_UNMATCHED);
     }
 
-    post.setTitle("Removed");
-    post.setContent("Removed");
+    // 내용은 프론트에서 안보이게 설정하고 데이터는 살려놓음
     post.setRemovedTime(LocalDateTime.now());
 
     return PostDto.fromEntity(post);
