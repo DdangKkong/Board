@@ -1,14 +1,6 @@
 package com.example.board.comment.dto;
 
 import com.example.board.comment.domain.Comment;
-import com.example.board.post.domain.Post;
-import com.example.board.user.domain.User;
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;

@@ -1,6 +1,5 @@
 package com.example.board.post.domain;
 
-import com.example.board.post.dto.CreatePost;
 import com.example.board.user.domain.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

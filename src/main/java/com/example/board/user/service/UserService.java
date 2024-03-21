@@ -12,6 +12,7 @@ import com.example.board.user.repository.UserRepository;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,11 @@ public class UserService {
 
   @Value("${spring.jwt.secret}")
   private String secretKey;
+
+  public UserDetails userDetails(String userLoginId) throws Throwable {
+    return (UserDetails) userRepository.findByUserLoginId(userLoginId)
+        .orElseThrow(() -> new AppException(ErrorCode.USERLOGINID_NOTFOUND));
+  }
 
   public Response signUp(Request request) {
 
@@ -51,13 +57,11 @@ public class UserService {
 
   }
 
-  public SignInDto.Response signIn(SignInDto.Request request) {
+  public SignInDto.Response signIn(SignInDto.Request request) throws Throwable {
 
     // 일치하는 아이디가 있는지 확인 ( userLoginId )
-    if (!userRepository.existsByUserLoginId(request.getUserLoginId())) {
-      throw new AppException(ErrorCode.USERLOGINID_NOTFOUND);
-    }
-    User user = userRepository.findByUserLoginId(request.getUserLoginId());
+    User user = (User) userRepository.findByUserLoginId(request.getUserLoginId())
+        .orElseThrow(() -> new AppException(ErrorCode.USERLOGINID_NOTFOUND));
 
     // 비밀번호 일치 확인
     if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {

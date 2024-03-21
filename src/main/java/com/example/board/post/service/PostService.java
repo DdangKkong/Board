@@ -4,8 +4,6 @@ import com.example.board.exception.AppException;
 import com.example.board.exception.ErrorCode;
 import com.example.board.post.domain.Post;
 import com.example.board.post.dto.CreatePost;
-import com.example.board.post.dto.CreatePost.Request;
-import com.example.board.post.dto.CreatePost.Response;
 import com.example.board.post.dto.PostDto;
 import com.example.board.post.dto.RemovePost;
 import com.example.board.post.dto.UpdatePost;
